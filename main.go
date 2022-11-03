@@ -41,10 +41,6 @@ func Operation(c *gin.Context) {
 	} else {
 		result = request.X * request.Y
 	}
-	switch request.OperationType {
-	case "addition":
-		result = request.X + request.Y
-	}
 	response := gin.H{
 		"slackUsername":  "leksyking",
 		"operation_type": request.OperationType,
@@ -52,5 +48,4 @@ func Operation(c *gin.Context) {
 	}
 
 	c.JSON(http.StatusOK, response)
-
 }
