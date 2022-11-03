@@ -15,6 +15,7 @@ type Request struct {
 }
 
 var result int
+var operation string
 
 func main() {
 	server := gin.New()
@@ -38,14 +39,17 @@ func Operation(c *gin.Context) {
 
 	if strings.Contains(request.OperationType, "add") {
 		result = request.X + request.Y
+		operation = "addition"
 	} else if strings.Contains(request.OperationType, "subtract") || strings.Contains(request.OperationType, "minus") {
 		result = request.X - request.Y
+		operation = "subtraction"
 	} else if strings.Contains(request.OperationType, "mul") {
 		result = request.X * request.Y
+		operation = "multiplication"
 	}
 	response := gin.H{
 		"slackUsername":  "leksyking",
-		"operation_type": request.OperationType,
+		"operation_type": operation,
 		"result":         result,
 	}
 
