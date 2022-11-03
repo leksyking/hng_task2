@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 )
@@ -34,11 +35,12 @@ func Operation(c *gin.Context) {
 		c.AbortWithStatusJSON(http.StatusInternalServerError, gin.H{"msg": "Something went wrong"})
 		return
 	}
-	if request.OperationType == "addition" {
+
+	if strings.Contains(request.OperationType, "add") {
 		result = request.X + request.Y
-	} else if request.OperationType == "subtraction" {
+	} else if strings.Contains(request.OperationType, "subtract") || strings.Contains(request.OperationType, "minus") {
 		result = request.X - request.Y
-	} else {
+	} else if strings.Contains(request.OperationType, "mul") {
 		result = request.X * request.Y
 	}
 	response := gin.H{
